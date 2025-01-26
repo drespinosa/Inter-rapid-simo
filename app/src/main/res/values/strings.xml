@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Inter-rapidisimo</string>
+    <string name="email">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Continuar</string>
+    <string name="error">Error</string>
+    <string name="empty_fields_error">Por favor, diligencie todos los campos</string>
+    <string name="invalid_credentials_error">Nombre de usuario o contraseña no válidos</string>
+    <string name="version_info">Información de la versión</string>
+    <string name="back">Ir al inicio</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="go_to_tables">Ir a tablas</string>
+    <string name="go_to_localities">Ir a localidades</string>
+    <string name="dates_user">Datos del usuario</string>
+</resources>

@@ -51,7 +51,15 @@ class ServiceRepository @Inject constructor(
         )
     }
 
-    suspend fun getLocalities(): Response<ResponseDataLocalityDTO> {
-        return api.getLocalities()
+    suspend fun getLocalities(): Response<List<ResponseDataLocalityDTO>> {
+//        return api.getLocalities()
+        return Response.success(
+            listOf(
+                ResponseDataLocalityDTO(
+                    abbreviation = "CUN",
+                    city = "BOG"
+                )
+            )
+        )
     }
 }

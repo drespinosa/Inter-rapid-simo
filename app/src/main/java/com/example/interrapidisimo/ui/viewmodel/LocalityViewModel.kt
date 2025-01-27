@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataLocalityDTO
 import com.example.interrapidisimo.data.model.ApiError
-import com.example.interrapidisimo.data.model.Model
+import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataLocalityDTO
 import com.example.interrapidisimo.domain.GetLocalitiesUseCase
 import com.example.interrapidisimo.domain.ServiceUseCaseResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,8 +26,8 @@ class LocalityViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> get() = _errorMessage
 
-    private val _successMessage = MutableLiveData<String?>()
-    val successMessage: LiveData<String?> get() = _successMessage
+    private val _successMessage = MutableLiveData<Response<List<ResponseDataLocalityDTO>>>()
+    val successMessage: LiveData<Response<List<ResponseDataLocalityDTO>>> get() = _successMessage
 
     fun getLocalities() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -37,15 +36,15 @@ class LocalityViewModel @Inject constructor(
             withContext(viewModelScope.coroutineContext) {
                 localitiesUseCase.invoke(
                     null,
-                    object : ServiceUseCaseResponse<Response<ResponseDataLocalityDTO>> {
-                        override fun onSuccess(result: Response<ResponseDataLocalityDTO>) {
+                    object : ServiceUseCaseResponse<Response<List<ResponseDataLocalityDTO>>> {
+                        override fun onSuccess(result: Response<List<ResponseDataLocalityDTO>>) {
                             _showOrHideLoader.postValue(false)
 
                             try {
                                 if (result.isSuccessful) {
                                     val localities = result.body()
 
-                                    _successMessage.postValue("¡Inicio de sesión exitoso!")
+                                    _successMessage.postValue(result)
                                 } else {
                                     _errorMessage.postValue("Error al procesar la solicitud: ${result.message()}")
                                 }

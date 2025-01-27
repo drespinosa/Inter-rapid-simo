@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.interrapidisimo.R
-import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataUserDTO
 import com.example.interrapidisimo.data.model.vo.UserVO
 import com.example.interrapidisimo.databinding.ActivityMainBinding
 import com.example.interrapidisimo.ui.view.FragmentEventListener
@@ -114,10 +113,8 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
     override fun onDisableButton(shouldDisable: Boolean) {
         if (shouldDisable) {
             binding.buttonBack.visibility = View.GONE
-            binding.separatorView.visibility = View.GONE
-        } else{
+        } else {
             binding.buttonBack.visibility = View.VISIBLE
-            binding.separatorView.visibility = View.VISIBLE
         }
     }
 

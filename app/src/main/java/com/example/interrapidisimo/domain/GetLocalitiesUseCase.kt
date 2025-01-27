@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 class GetLocalitiesUseCase @Inject constructor(
     private val repository: ServiceRepository
-) : ServiceUseCase<Response<ResponseDataLocalityDTO>, Any?>() {
-    override suspend fun run(request: Any?): Response<ResponseDataLocalityDTO> {
+) : ServiceUseCase<Response<List<ResponseDataLocalityDTO>>, Any?>() {
+    override suspend fun run(request: Any?): Response<List<ResponseDataLocalityDTO>> {
         return repository.getLocalities()
     }
 }

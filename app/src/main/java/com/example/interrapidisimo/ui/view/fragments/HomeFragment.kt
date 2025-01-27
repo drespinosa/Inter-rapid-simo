@@ -67,9 +67,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun pintUserData() {
-        binding.userId.text = dataUser?.identification
-        binding.userName.text = dataUser?.name
-        binding.nickname.text = dataUser?.user
+        binding.userId.text = getString(R.string.identification_display, getString(R.string.identification), dataUser?.identification)
+        binding.userName.text = getString(R.string.identification_display, getString(R.string.name), dataUser?.name)
+        binding.nickname.text = getString(R.string.identification_display, getString(R.string.user), dataUser?.user)
     }
 
     override fun onDestroyView() {

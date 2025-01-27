@@ -12,4 +12,8 @@
     <string name="go_to_tables">Ir a tablas</string>
     <string name="go_to_localities">Ir a localidades</string>
     <string name="dates_user">Datos del usuario</string>
+    <string name="identification">Identificación</string>
+    <string name="name">Nombre</string>
+    <string name="user">Usuario</string>
+    <string name="identification_display">%1$s: %2$s</string>
 </resources>

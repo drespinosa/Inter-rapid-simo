@@ -27,4 +27,15 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="style_buttons_fragment">
+        <item name="android:layout_width">@dimen/dimen_64</item>
+        <item name="android:layout_height">@dimen/dimen_64</item>
+        <item name="android:background">@drawable/ic_circle_button</item>
+    </style>
+    <style name="style_buttons_activities">
+        <item name="android:layout_width">@dimen/dimen_64</item>
+        <item name="android:layout_height">@dimen/dimen_64</item>
+        <item name="android:background">@drawable/ic_circle_button</item>
+        <item name="android:backgroundTint">@color/orange</item>
+    </style>
 </resources>

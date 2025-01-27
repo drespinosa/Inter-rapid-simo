@@ -18,4 +18,5 @@
     <string name="identification_display">%1$s: %2$s</string>
     <string name="localities">Localidades</string>
     <string name="schemas">Tablas</string>
+    <string name="loading">Cargando, por favor espere...</string>
 </resources>

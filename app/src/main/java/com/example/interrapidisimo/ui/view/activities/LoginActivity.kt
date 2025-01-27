@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import com.example.interrapidisimo.R
-import com.example.interrapidisimo.data.model.dto.request.RequestControlVDTO
 import com.example.interrapidisimo.data.model.BuildConfig
 import com.example.interrapidisimo.databinding.LoginActivityBinding
 import com.example.interrapidisimo.ui.viewmodel.ControlVersionViewModel
@@ -88,6 +87,7 @@ class LoginActivity : ComponentActivity() {
                     .setView(R.layout.dialog_loading)
                     .setCancelable(false)
                     .create()
+                loadingDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
             }
             loadingDialog?.show()
         } else {
@@ -96,11 +96,14 @@ class LoginActivity : ComponentActivity() {
     }
 
     private fun showErrorDialog(message: String) {
-        AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this)
             .setTitle(R.string.error)
             .setMessage(message)
             .setPositiveButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
             .show()
+
+        dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_background)
+        dialog.show()
     }
 
     private fun goToMainActivity() {
@@ -110,11 +113,14 @@ class LoginActivity : ComponentActivity() {
     }
 
     private fun showMessageVersionDialog(message: String) {
-        AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this)
             .setTitle(getString(R.string.version_info))
             .setMessage(message)
             .setPositiveButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
-            .show()
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_background)
+        dialog.show()
     }
 
 

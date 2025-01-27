@@ -21,12 +21,10 @@ class SchemaViewModel @Inject constructor(
     private val schemaUseCase: GetSchemaUseCase
 ) : ViewModel() {
 
-    private val _model = MutableLiveData<Model>()
     private val _showOrHideLoader = MutableLiveData<Boolean>()
     private val _errorMessage = MutableLiveData<String?>()
     private val _successMessage = MutableLiveData<Response<List<ResponseDataSchemeDTO>>>()
 
-    val model: LiveData<Model> get() = _model
     val showOrHideLoader: LiveData<Boolean> get() = _showOrHideLoader
     val errorMessage: LiveData<String?> get() = _errorMessage
     val successMessage: LiveData<Response<List<ResponseDataSchemeDTO>>> get() = _successMessage

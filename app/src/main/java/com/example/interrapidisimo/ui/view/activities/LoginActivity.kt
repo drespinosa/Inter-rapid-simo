@@ -28,6 +28,9 @@ class LoginActivity : ComponentActivity() {
         binding = LoginActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.userEditText.setText("cGFtLm1lcmVkeTIx\\n")
+        binding.passwordEditText.setText("SW50ZXIyMDIx\\n")
+
         checkVersion()
         addObservers()
         addButtonsListeners()
@@ -37,7 +40,6 @@ class LoginActivity : ComponentActivity() {
         val localVersion = BuildConfig.VERSION_NAME
 
         checkAppVersion.postControlVersion(
-            request = RequestControlVDTO(),
             localVersion = localVersion
         )
     }

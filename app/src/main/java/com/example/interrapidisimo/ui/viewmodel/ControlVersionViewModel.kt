@@ -5,10 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.interrapidisimo.data.model.dto.request.RequestControlVDTO
-import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataControlVDTO
 import com.example.interrapidisimo.data.model.ApiError
-import com.example.interrapidisimo.data.model.Model
+import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataControlVDTO
+import com.example.interrapidisimo.data.utils.Constants.FAIL_RESPONSE_VERSION
+import com.example.interrapidisimo.data.utils.Constants.V_EQUAL
+import com.example.interrapidisimo.data.utils.Constants.V_LOCAL_LARGER
+import com.example.interrapidisimo.data.utils.Constants.V_REMOTE_LARGER
 import com.example.interrapidisimo.domain.PostControlVUseCase
 import com.example.interrapidisimo.domain.ServiceUseCaseResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,15 +30,13 @@ class ControlVersionViewModel @Inject constructor(
     private val _versionMessage = MutableLiveData<String>()
     val versionMessage: LiveData<String> get() = _versionMessage
 
-    fun postControlVersion(request: RequestControlVDTO, localVersion: String) {
-        Log.d("http ${this::class.java.simpleName}", "VM postControlVersion localVersion: $localVersion")
-
+    fun postControlVersion(localVersion: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _showOrHideLoader.postValue(true)
 
             withContext(viewModelScope.coroutineContext) {
                 controlVersionUseCase.invoke(
-                    request,
+                    null,
                     object : ServiceUseCaseResponse<Response<ResponseDataControlVDTO>> {
                         override fun onSuccess(result: Response<ResponseDataControlVDTO>) {
                             Log.d("http ${this::class.java.simpleName}", "VM postControlVersion result: $result")
@@ -45,24 +45,23 @@ class ControlVersionViewModel @Inject constructor(
 
                             try {
                                 if (result.isSuccessful) {
-                                    val remoteVersion  = result.body()?.version
+                                    val remoteVersion  = result.body()?.version ?: "0"
                                     val comparison = compareVersions(localVersion, remoteVersion)
 
                                     when {
                                         comparison < 0 -> {
-                                            _versionMessage.postValue("La versión de tu aplicación está desactualizada. Actualiza a la versión $remoteVersion.")
+                                            _versionMessage.postValue(V_LOCAL_LARGER)
                                         }
                                         comparison > 0 -> {
-                                            _versionMessage.postValue("Estás usando una versión más reciente que la oficial ($remoteVersion).")
+                                            _versionMessage.postValue(V_REMOTE_LARGER)
                                         }
                                         else -> {
-                                            _versionMessage.postValue("Tu aplicación está actualizada. Estás usando la última versión oficial ($localVersion).")
+                                            _versionMessage.postValue(V_EQUAL)
                                         }
                                     }
 
                                 } else {
-                                    Log.d("http ${this::class.java.simpleName}", "VM isError message: ${result.message()}")
-                                    _versionMessage.postValue("Servicio para valdiar el control de version no disponible.")
+                                    _versionMessage.postValue(FAIL_RESPONSE_VERSION)
                                 }
                             } catch (e: Exception) {
                                 Log.d("http ${this::class.java.simpleName}", "VM postControlVersion e: $e")
@@ -77,7 +76,7 @@ class ControlVersionViewModel @Inject constructor(
                             Log.d("http ${this::class.java.simpleName}", "VM postControlVersion apiError: $apiError")
 
                             _showOrHideLoader.postValue(false)
-                            _versionMessage.postValue("Servicio para valdiar el control de version no disponible.")
+                            _versionMessage.postValue(FAIL_RESPONSE_VERSION)
                         }
                     }
                 )
@@ -85,13 +84,7 @@ class ControlVersionViewModel @Inject constructor(
         }
     }
 
-    fun compareVersions(localVersion: String, remoteVersion: String?): Int {
-        Log.d("http ${this::class.java.simpleName}", "VM compareVersions localVersion: $localVersion")
-        Log.d("http ${this::class.java.simpleName}", "VM compareVersions remoteVersion: $remoteVersion")
-
-        if (remoteVersion == null) {
-            return 0
-        }
+    fun compareVersions(localVersion: String, remoteVersion: String): Int {
         val remoteParts = remoteVersion.split(".").map { it.toIntOrNull() ?: 0 }
         val localParts = localVersion.split(".").map { it.toIntOrNull() ?: 0 }
 

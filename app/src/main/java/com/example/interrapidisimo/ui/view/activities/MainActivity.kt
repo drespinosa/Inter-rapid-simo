@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
         }
 
         loginViewModel.getUser()
-        aViewModel.getQuotes()
+        //aViewModel.getQuotes()
         addObservers()
         addButtonsListeners()
     }

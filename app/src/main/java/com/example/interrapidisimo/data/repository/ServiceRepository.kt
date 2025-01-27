@@ -1,13 +1,12 @@
 package com.example.interrapidisimo.data.repository
 
 import android.util.Log
-import com.example.interrapidisimo.data.model.dto.request.RequestControlVDTO
+import com.example.interrapidisimo.data.model.Model
 import com.example.interrapidisimo.data.model.dto.request.RequestUserDTO
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataControlVDTO
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataLocalityDTO
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataSchemeDTO
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataUserDTO
-import com.example.interrapidisimo.data.model.Model
 import com.example.interrapidisimo.data.network.ApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -26,40 +25,28 @@ class ServiceRepository @Inject constructor(
         }
     }
 
-    suspend fun postControlVersion(request: RequestControlVDTO): Response<ResponseDataControlVDTO> {
-        return api.postControlVersion(request)
+    suspend fun postControlVersion(): Response<ResponseDataControlVDTO> {
+        return api.postControlVersion()
     }
 
     suspend fun postLogIn(request: RequestUserDTO): Response<ResponseDataUserDTO> {
-        return api.postLogIn(request)
+        return api.postLogIn(
+            usuario = "pam.meredy21",
+            identificacion = "987204545",
+            idUsuario = "pam.meredy21",
+            idCentroServicio = "1295",
+            nombreCentroServicio = "PTO/BOGOTA/CUND/COL/OF PRINCIPAL - CRA 30 # 7-45",
+            idAplicativoOrigen = "9",
+            contentType = "application/json",
+            request
+        )
     }
 
     suspend fun getSchema(): Response<List<ResponseDataSchemeDTO>> {
-        //return api.getSchema()
-        return Response.success(
-            listOf(
-                ResponseDataSchemeDTO(
-                    name = "Tabla 1",
-                    primaryKey = "1",
-                    query = "1",
-                    size = "1",
-                    filter = "1",
-                    field = "1",
-                    updateDate = "1997-04-17'T'17:17:17"
-                )
-            )
-        )
+        return api.getSchema()
     }
 
     suspend fun getLocalities(): Response<List<ResponseDataLocalityDTO>> {
-//        return api.getLocalities()
-        return Response.success(
-            listOf(
-                ResponseDataLocalityDTO(
-                    abbreviation = "CUN",
-                    city = "BOG"
-                )
-            )
-        )
+        return api.getLocalities()
     }
 }

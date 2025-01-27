@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.interrapidisimo.data.model.ApiError
-import com.example.interrapidisimo.data.model.Model
 import com.example.interrapidisimo.data.model.dto.request.RequestUserDTO
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataUserDTO
 import com.example.interrapidisimo.data.model.vo.UserVO
@@ -33,9 +32,6 @@ class LoginViewModel @Inject constructor(
     private val deleteUserUseCase: DeleteUserUseCase
 ) : ViewModel() {
 
-    private val _model = MutableLiveData<Model>()
-    val model: LiveData<Model> get() = _model
-
     private val _showOrHideLoader = MutableLiveData<Boolean>()
     val showOrHideLoader: LiveData<Boolean> get() = _showOrHideLoader
 
@@ -50,7 +46,6 @@ class LoginViewModel @Inject constructor(
 
     fun postLogIn(request: RequestUserDTO) {
         Log.d("http ${this::class.java.simpleName}", "VM postLogIn request: $request")
-
         viewModelScope.launch(Dispatchers.IO) {
             _showOrHideLoader.postValue(true)
 
@@ -73,24 +68,13 @@ class LoginViewModel @Inject constructor(
                                     }
                                 } else {
                                     Log.d("http ${this::class.java.simpleName}", "VM postLogIn isError message: ${result.message()}")
-                                    if (request.terminalNumber == "dan" && request.versionNumber == "123") {
-                                        val request = ResponseDataUserDTO(
-                                            user = request.versionNumber,
-                                            identification = request.terminalNumber,
-                                            name = request.versionNumber
-                                        )
-                                        saveUser(request)
-                                        _successMessage.postValue(SUCCESS_LOGIN)
-                                    } else {
-                                        _errorMessage.postValue(FAIL_RESPONSE + " ${result.message()}")
-                                    }
+                                    _errorMessage.postValue(FAIL_RESPONSE + " ${result.message()}")
                                 }
                             } catch (e: Exception) {
                                 _errorMessage.postValue(FAIL_RESPONSE + " ${e.message}")
                             } finally {
                                 _showOrHideLoader.postValue(false)
                             }
-
                         }
 
                         override fun onError(apiError: ApiError?) {
@@ -110,7 +94,13 @@ class LoginViewModel @Inject constructor(
         if (username.isEmpty() || password.isEmpty()) {
             _errorMessage.postValue(RETRY_CREDENTIAL)
         } else {
-            val request = RequestUserDTO(username, password)
+            val request = RequestUserDTO(
+                mac = "",
+                nameApp = "Controller APP",
+                password = password,
+                path = "",
+                user = username
+            )
             postLogIn(request)
         }
     }
@@ -139,6 +129,5 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
-
 
 }

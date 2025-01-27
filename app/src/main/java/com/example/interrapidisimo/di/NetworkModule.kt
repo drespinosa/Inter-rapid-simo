@@ -5,7 +5,6 @@ import androidx.room.Room
 import com.example.interrapidisimo.data.database.TablesDatabase
 import com.example.interrapidisimo.data.database.daos.UserDao
 import com.example.interrapidisimo.data.network.ApiClient
-import com.example.interrapidisimo.data.repository.RoomRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +24,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://drawsomething-59328-default-rtdb.europe-west1.firebasedatabase.app/")
+            .baseUrl("https://apitesting.interrapidisimo.co/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

@@ -44,6 +44,12 @@ class LoginViewModel @Inject constructor(
     private val _dataUser = MutableLiveData<UserVO?>()
     val dataUser: LiveData<UserVO?> get() = _dataUser
 
+    private val _isUserEmpty = MutableLiveData<Boolean>()
+    val isUserEmpty: LiveData<Boolean> get() = _isUserEmpty
+
+    private val _isPasswordEmpty = MutableLiveData<Boolean>()
+    val isPasswordEmpty: LiveData<Boolean> get() = _isPasswordEmpty
+
     fun postLogIn(request: RequestUserDTO) {
         Log.d("http ${this::class.java.simpleName}", "VM postLogIn request: $request")
         viewModelScope.launch(Dispatchers.IO) {
@@ -90,19 +96,44 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun validateAndLogIn(username: String, password: String) {
-        if (username.isEmpty() || password.isEmpty()) {
-            _errorMessage.postValue(RETRY_CREDENTIAL)
-        } else {
-            val request = RequestUserDTO(
-                mac = "",
-                nameApp = "Controller APP",
-                password = password,
-                path = "",
-                user = username
-            )
+    fun validateLogIn(username: String, password: String) {
+        val isUsernameValid = validateUsername(username)
+        val isPasswordValid = validatePassword(password)
+
+        if (isUsernameValid && isPasswordValid) {
+            val request = createLoginRequest(username, password)
             postLogIn(request)
         }
+    }
+
+    private fun validateUsername(username: String): Boolean {
+        return if (username.isBlank()) {
+            _isUserEmpty.postValue(true)
+            false
+        } else {
+            _isUserEmpty.postValue(false)
+            true
+        }
+    }
+
+    private fun validatePassword(password: String): Boolean {
+        return if (password.isBlank()) {
+            _isPasswordEmpty.postValue(true)
+            false
+        } else {
+            _isPasswordEmpty.postValue(false)
+            true
+        }
+    }
+
+    private fun createLoginRequest(username: String, password: String): RequestUserDTO {
+        return RequestUserDTO(
+            mac = "",
+            nameApp = "Controller APP",
+            password = password,
+            path = "",
+            user = username
+        )
     }
 
     fun saveUser(user: ResponseDataUserDTO) {

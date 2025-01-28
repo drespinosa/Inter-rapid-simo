@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataSchemeDTO
 import com.example.interrapidisimo.data.model.ApiError
-import com.example.interrapidisimo.data.model.Model
+import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataSchemeDTO
 import com.example.interrapidisimo.domain.GetSchemaUseCase
 import com.example.interrapidisimo.domain.ServiceUseCaseResponse
 import dagger.hilt.android.lifecycle.HiltViewModel

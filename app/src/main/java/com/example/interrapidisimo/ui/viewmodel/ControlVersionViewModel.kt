@@ -11,7 +11,7 @@ import com.example.interrapidisimo.data.utils.Constants.FAIL_RESPONSE_VERSION
 import com.example.interrapidisimo.data.utils.Constants.V_EQUAL
 import com.example.interrapidisimo.data.utils.Constants.V_LOCAL_LARGER
 import com.example.interrapidisimo.data.utils.Constants.V_REMOTE_LARGER
-import com.example.interrapidisimo.domain.PostControlVUseCase
+import com.example.interrapidisimo.domain.GetControlVersionUseCase
 import com.example.interrapidisimo.domain.ServiceUseCaseResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ControlVersionViewModel @Inject constructor(
-    private val controlVersionUseCase: PostControlVUseCase
+    private val controlVersionUseCase: GetControlVersionUseCase
 ) : ViewModel() {
 
     private val _showOrHideLoader = MutableLiveData<Boolean>()

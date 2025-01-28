@@ -5,10 +5,10 @@ import com.example.interrapidisimo.data.repository.ServiceRepository
 import retrofit2.Response
 import javax.inject.Inject
 
-class PostControlVUseCase @Inject constructor(
+class GetControlVersionUseCase @Inject constructor(
     private val repository: ServiceRepository
 ) : ServiceUseCase<Response<ResponseDataControlVDTO>, Any?>() {
     override suspend fun run(request: Any?): Response<ResponseDataControlVDTO> {
-        return repository.postControlVersion()
+        return repository.getControlVersion()
     }
 }

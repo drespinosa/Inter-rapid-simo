@@ -53,10 +53,4 @@ object NetworkModule {
         return db.getUserDao()
     }
 
-    /*@Singleton
-    @Provides
-    fun providdeUserRepository(dao: UserDao) = RoomRepository(dao)
-
-     */
-
 }

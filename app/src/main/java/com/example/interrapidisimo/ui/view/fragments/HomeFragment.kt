@@ -2,14 +2,12 @@ package com.example.interrapidisimo.ui.view.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.interrapidisimo.R
-import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataUserDTO
 import com.example.interrapidisimo.data.model.vo.UserVO
 import com.example.interrapidisimo.databinding.FragmentHomeBinding
 import com.example.interrapidisimo.ui.view.FragmentEventListener
@@ -59,14 +57,12 @@ class HomeFragment : Fragment() {
         loginViewModel.dataUser.observe(viewLifecycleOwner) { data ->
             if (data != null) {
                 dataUser = data
-                pintUserData()
+                printUserData()
             }
-
-            Log.d("http ${this::class.java.simpleName}", "HF dataUser: $dataUser")
         }
     }
 
-    private fun pintUserData() {
+    private fun printUserData() {
         binding.userId.text = getString(R.string.identification_display, getString(R.string.identification), dataUser?.identification)
         binding.userName.text = getString(R.string.identification_display, getString(R.string.name), dataUser?.name)
         binding.nickname.text = getString(R.string.identification_display, getString(R.string.user), dataUser?.user)

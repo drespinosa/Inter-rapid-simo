@@ -23,6 +23,6 @@ interface UserDao {
     }
 
     @Query("SELECT * FROM user_table LIMIT 1")
-    suspend fun getSingleUser(): UserEntity?
+    suspend fun getSingleUser(): UserEntity
 
 }

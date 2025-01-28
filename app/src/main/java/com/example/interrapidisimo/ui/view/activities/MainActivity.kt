@@ -13,7 +13,6 @@ import com.example.interrapidisimo.data.model.vo.UserVO
 import com.example.interrapidisimo.databinding.ActivityMainBinding
 import com.example.interrapidisimo.ui.view.FragmentEventListener
 import com.example.interrapidisimo.ui.view.fragments.HomeFragment
-import com.example.interrapidisimo.ui.viewmodel.AViewModel
 import com.example.interrapidisimo.ui.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity(), FragmentEventListener {
 
     private lateinit var binding: ActivityMainBinding
-    private val aViewModel: AViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
     private var loadingDialog: AlertDialog? = null
     private var dataUser: UserVO? = null
@@ -37,9 +35,7 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
         }
 
         loginViewModel.getUser()
-        //aViewModel.getQuotes()
         addObservers()
-        addButtonsListeners()
     }
 
     private fun setupHeaderButtons() {
@@ -66,22 +62,7 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
         finish()
     }
 
-    private fun addButtonsListeners() {
-        binding.button.setOnClickListener {
-            aViewModel.randomModel()
-        }
-    }
-
     private fun addObservers() {
-        aViewModel.model.observe(this) { model ->
-            Log.d("http ${this::class.java.simpleName}", "MA observes model: ${model}")
-            binding.text1.text = model.name
-        }
-        aViewModel.showOrHideLoader.observe(this) { isLoading ->
-            Log.d("http ${this::class.java.simpleName}", "MA observes isLoading: $isLoading")
-            showOrHideLoader(isLoading)
-        }
-
         loginViewModel.dataUser.observe(this) { data ->
             dataUser = data
             Log.d("http ${this::class.java.simpleName}", "MA dataUser: $dataUser")

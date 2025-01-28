@@ -19,4 +19,6 @@
     <string name="localities">Localidades</string>
     <string name="schemas">Tablas</string>
     <string name="loading">Cargando, por favor espere...</string>
+    <string name="password_empty">Por favor ingresa la contraseña</string>
+    <string name="user_empty">Por favor ingresa el usuario</string>
 </resources>

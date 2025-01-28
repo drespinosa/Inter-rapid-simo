@@ -28,22 +28,7 @@ class SchemaAdapter(
 
         fun bind(data: ResponseDataSchemeDTO) {
             binding.tittleTableTextview.text = data.name
-            binding.dataOneTextview.text = data.primaryKey
-            binding.dataTwoTextview.text = data.size
-            binding.dataThreeTextview.text = data.field
-            binding.dataFourTextview.text = data.updateDate//formatterDate(data.updateDate)
         }
-
-        /**
-         * Formatea una cadena de fecha eliminando los milisegundos y cambiando su formato a "dd MMMM yyyy HH:mm:ss" en español
-         */
-        /*private fun formatterDate(date: String): String{
-            val withoutMilliseconds = date.substring(0, date.indexOf('.'))
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
-            val dateFormatter = LocalDateTime.parse(withoutMilliseconds, formatter)
-            val newFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss", Locale("es", "ES"))
-            return dateFormatter.format(newFormatter)
-        }*/
     }
 
 }

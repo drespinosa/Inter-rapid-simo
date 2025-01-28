@@ -1,6 +1,5 @@
 package com.example.interrapidisimo.data.network
 
-import com.example.interrapidisimo.data.model.Model
 import com.example.interrapidisimo.data.model.dto.request.RequestUserDTO
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataControlVDTO
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataLocalityDTO
@@ -14,11 +13,8 @@ import retrofit2.http.POST
 
 interface ApiClient {
 
-    @GET("/.json")
-    suspend fun getAllQuotes(): Response<List<Model>>
-
     @GET("/apicontrollerpruebas/api/ParametrosFramework/ConsultarParametrosFramework/VPStoreAppControl")
-    suspend fun postControlVersion(): Response<ResponseDataControlVDTO>
+    suspend fun getControlVersion(): Response<ResponseDataControlVDTO>
 
     @POST("/FtEntregaElectronica/MultiCanales/ApiSeguridadPruebas/api/Seguridad/AuthenticaUsuarioApp")
     suspend fun postLogIn(

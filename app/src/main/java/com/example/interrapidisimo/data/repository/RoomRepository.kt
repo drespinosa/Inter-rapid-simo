@@ -1,6 +1,5 @@
 package com.example.interrapidisimo.data.repository
 
-import android.util.Log
 import com.example.interrapidisimo.data.database.daos.UserDao
 import com.example.interrapidisimo.data.database.entities.UserEntity
 import com.example.interrapidisimo.data.mapper.UserMapper
@@ -15,7 +14,6 @@ class RoomRepository @Inject constructor(
 
     suspend fun saveUser(userEntity: UserEntity) {
         return withContext(Dispatchers.IO) {
-            Log.d("http ${this::class.java.simpleName}", "R saveUser userEntity: $userEntity")
             userDao.replaceUser(userEntity)
         }
     }
@@ -28,11 +26,7 @@ class RoomRepository @Inject constructor(
 
     suspend fun getUser(): ResponseDataUserDTO {
         return withContext(Dispatchers.IO) {
-            val userEntity = UserEntity(
-                user = "user",
-                identification = "identification",
-                name = "name"
-            )
+            val userEntity = userDao.getSingleUser()
             userEntity.let { UserMapper.fromEntity(it) }
         }
     }

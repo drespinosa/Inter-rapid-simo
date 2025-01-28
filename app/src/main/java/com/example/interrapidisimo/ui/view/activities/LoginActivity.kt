@@ -3,8 +3,11 @@ package com.example.interrapidisimo.ui.view.activities
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import com.example.interrapidisimo.R
 import com.example.interrapidisimo.data.model.BuildConfig
 import com.example.interrapidisimo.databinding.LoginActivityBinding
@@ -27,8 +30,8 @@ class LoginActivity : ComponentActivity() {
         binding = LoginActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.userEditText.setText("cGFtLm1lcmVkeTIx\\n")
-        binding.passwordEditText.setText("SW50ZXIyMDIx\\n")
+        binding.userEditText.setText("cGFtLm1lcmVkeTIx\n")
+        binding.passwordEditText.setText("SW50ZXIyMDIx\n")
 
         checkVersion()
         addObservers()
@@ -47,12 +50,38 @@ class LoginActivity : ComponentActivity() {
         binding.loginButton.setOnClickListener {
             val username = binding.userEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
-            loginViewModel.validateAndLogIn(username, password)
+            loginViewModel.validateLogIn(username, password)
         }
 
         binding.versionLayout.setOnClickListener {
             checkVersion()
         }
+
+        binding.passwordEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!s.isNullOrEmpty()) {
+                    binding.passwordEditText.background = ContextCompat.getDrawable(this@LoginActivity, R.drawable.ic_button_white)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+
+        binding.userEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!s.isNullOrEmpty()) {
+                    binding.userEditText.background = ContextCompat.getDrawable(this@LoginActivity, R.drawable.ic_button_white)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
     }
 
     private fun addObservers() {
@@ -75,6 +104,19 @@ class LoginActivity : ComponentActivity() {
         loginViewModel.successMessage.observe(this) { message ->
             message?.let {
                 goToMainActivity()
+            }
+        }
+        loginViewModel.isUserEmpty.observe(this) { data ->
+            if (data) {
+                binding.userEditText.error = getString(R.string.user_empty)
+                binding.userEditText.background = ContextCompat.getDrawable(this, R.drawable.ic_button_red)
+            }
+        }
+
+        loginViewModel.isPasswordEmpty.observe(this) { data ->
+            if (data) {
+                binding.passwordEditText.error = getString(R.string.password_empty)
+                binding.passwordEditText.background = ContextCompat.getDrawable(this, R.drawable.ic_button_red)
             }
         }
 

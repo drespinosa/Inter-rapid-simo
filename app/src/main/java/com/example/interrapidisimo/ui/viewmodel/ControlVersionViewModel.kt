@@ -8,9 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.interrapidisimo.data.model.ApiError
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataControlVDTO
 import com.example.interrapidisimo.data.utils.Constants.FAIL_RESPONSE_VERSION
-import com.example.interrapidisimo.data.utils.Constants.V_EQUAL
-import com.example.interrapidisimo.data.utils.Constants.V_LOCAL_LARGER
-import com.example.interrapidisimo.data.utils.Constants.V_REMOTE_LARGER
+import com.example.interrapidisimo.data.utils.Constants.VERSION_EQUAL
+import com.example.interrapidisimo.data.utils.Constants.VERSION_LOCAL_LARGER
+import com.example.interrapidisimo.data.utils.Constants.VERSION_REMOTE_LARGER
 import com.example.interrapidisimo.domain.GetControlVersionUseCase
 import com.example.interrapidisimo.domain.ServiceUseCaseResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,8 +27,15 @@ class ControlVersionViewModel @Inject constructor(
 
     private val _showOrHideLoader = MutableLiveData<Boolean>()
     val showOrHideLoader: LiveData<Boolean> get() = _showOrHideLoader
+
     private val _versionMessage = MutableLiveData<String>()
     val versionMessage: LiveData<String> get() = _versionMessage
+
+    private val _versionRemote = MutableLiveData<String>()
+    val versionRemote: LiveData<String> get() = _versionRemote
+
+    private val _versionLocal = MutableLiveData<String>()
+    val versionLocal: LiveData<String> get() = _versionLocal
 
     fun postControlVersion(localVersion: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -50,13 +57,13 @@ class ControlVersionViewModel @Inject constructor(
 
                                     when {
                                         comparison < 0 -> {
-                                            _versionMessage.postValue(V_LOCAL_LARGER)
+                                            _versionMessage.postValue(VERSION_REMOTE_LARGER)
                                         }
                                         comparison > 0 -> {
-                                            _versionMessage.postValue(V_REMOTE_LARGER)
+                                            _versionMessage.postValue(VERSION_LOCAL_LARGER)
                                         }
                                         else -> {
-                                            _versionMessage.postValue(V_EQUAL)
+                                            _versionMessage.postValue(VERSION_EQUAL)
                                         }
                                     }
 
@@ -87,6 +94,9 @@ class ControlVersionViewModel @Inject constructor(
     fun compareVersions(localVersion: String, remoteVersion: String): Int {
         val remoteParts = remoteVersion.split(".").map { it.toIntOrNull() ?: 0 }
         val localParts = localVersion.split(".").map { it.toIntOrNull() ?: 0 }
+
+        _versionRemote.postValue(remoteVersion)
+        _versionLocal.postValue(localVersion)
 
         for (i in 0 until maxOf(localParts.size, remoteParts.size)) {
             val localPart = localParts.getOrElse(i) { 0 }

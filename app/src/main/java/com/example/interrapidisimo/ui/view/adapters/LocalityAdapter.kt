@@ -29,7 +29,7 @@ class LocalityAdapter(
 
         fun bind(data: ResponseDataLocalityDTO) {
             binding.tittleTableTextview.text = data.abbreviation
-            binding.dataOneTextview.text = data.city
+            binding.dataOneTextview.text = data.abbreviation
             binding.dataTwoTextview.text = data.city
         }
 

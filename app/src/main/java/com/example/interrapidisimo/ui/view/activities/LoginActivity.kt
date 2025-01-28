@@ -22,6 +22,8 @@ class LoginActivity : ComponentActivity() {
     private val loginViewModel: LoginViewModel by viewModels()
     private val checkAppVersion: ControlVersionViewModel by viewModels()
     private var loadingDialog: AlertDialog? = null
+    private var versionRemote: String? = null
+    private var versionLocal: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -92,6 +94,12 @@ class LoginActivity : ComponentActivity() {
         checkAppVersion.showOrHideLoader.observe(this) { isLoading ->
             showLoading(isLoading)
         }
+        checkAppVersion.versionRemote.observe(this) { version ->
+            versionRemote = version
+        }
+        checkAppVersion.versionLocal.observe(this) { version ->
+            versionLocal = version
+        }
 
         loginViewModel.showOrHideLoader.observe(this) { show ->
             showLoading(show)
@@ -155,9 +163,10 @@ class LoginActivity : ComponentActivity() {
     }
 
     private fun showMessageVersionDialog(message: String) {
+        val newMessage = getString(R.string.message_version, message, "\n \n- Versión Local: $versionLocal  \n- Versión Remota: $versionRemote")
         val dialog = AlertDialog.Builder(this)
             .setTitle(getString(R.string.version_info))
-            .setMessage(message)
+            .setMessage(newMessage)
             .setPositiveButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
             .create()
 

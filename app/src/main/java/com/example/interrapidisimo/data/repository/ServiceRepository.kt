@@ -17,13 +17,17 @@ class ServiceRepository @Inject constructor(
 
     suspend fun getControlVersion(): Response<ResponseDataControlVDTO> {
         return withContext(Dispatchers.IO) {
-            api.getControlVersion()
+           // api.getControlVersion()
+            val simulatedData = ResponseDataControlVDTO(
+                version = "10.1.0"
+            )
+            Response.success(simulatedData)
         }
     }
 
     suspend fun postLogIn(request: RequestUserDTO): Response<ResponseDataUserDTO> {
         return withContext(Dispatchers.IO) {
-            api.postLogIn(
+            /*api.postLogIn(
                 usuario = "pam.meredy21",
                 identificacion = "987204545",
                 idUsuario = "pam.meredy21",
@@ -33,19 +37,44 @@ class ServiceRepository @Inject constructor(
                 contentType = "application/json",
                 request
             )
+
+             */
+            val simulatedData = ResponseDataUserDTO(
+                user = "pam.meredy21",
+                identification = "987204545",
+                name = "pam"
+            )
+            Response.success(simulatedData)
         }
 
     }
 
     suspend fun getSchema(): Response<List<ResponseDataSchemeDTO>> {
         return withContext(Dispatchers.IO) {
-            api.getSchema()
+            //api.getSchema()
+            val simulatedData = listOf(
+                ResponseDataSchemeDTO(name = "TablaUsuarios", content = "Usuario 1"),
+                ResponseDataSchemeDTO(name = "TablaProductos", content = "Producto 1"),
+                ResponseDataSchemeDTO(name = "TablaPedidos", content = "Pedido 1")
+            )
+            Response.success(simulatedData)
         }
     }
 
     suspend fun getLocalities(): Response<List<ResponseDataLocalityDTO>> {
         return withContext(Dispatchers.IO) {
-            api.getLocalities()
+           // api.getLocalities()
+            val simulatedData = listOf(
+                ResponseDataLocalityDTO(
+                    abbreviation = "BOG",
+                    city = "Bogota"
+                ),
+                ResponseDataLocalityDTO(
+                    abbreviation = "ANT",
+                    city = "Antioquia"
+                )
+            )
+            Response.success(simulatedData)
         }
     }
 }

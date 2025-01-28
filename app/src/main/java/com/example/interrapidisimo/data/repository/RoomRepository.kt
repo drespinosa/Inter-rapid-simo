@@ -1,6 +1,8 @@
 package com.example.interrapidisimo.data.repository
 
+import com.example.interrapidisimo.data.database.daos.SchemaDao
 import com.example.interrapidisimo.data.database.daos.UserDao
+import com.example.interrapidisimo.data.database.entities.SchemaEntity
 import com.example.interrapidisimo.data.database.entities.UserEntity
 import com.example.interrapidisimo.data.mapper.UserMapper
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataUserDTO
@@ -9,7 +11,8 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RoomRepository @Inject constructor(
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val schemaDao: SchemaDao,
 ) {
 
     suspend fun saveUser(userEntity: UserEntity) {
@@ -28,6 +31,12 @@ class RoomRepository @Inject constructor(
         return withContext(Dispatchers.IO) {
             val userEntity = userDao.getSingleUser()
             userEntity.let { UserMapper.fromEntity(it) }
+        }
+    }
+
+    suspend fun saveSchema(tables: List<SchemaEntity>) {
+        return withContext(Dispatchers.IO) {
+            schemaDao.replaceTables(tables)
         }
     }
 }

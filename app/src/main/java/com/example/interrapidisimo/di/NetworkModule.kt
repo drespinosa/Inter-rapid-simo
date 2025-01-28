@@ -3,6 +3,7 @@ package com.example.interrapidisimo.di
 import android.content.Context
 import androidx.room.Room
 import com.example.interrapidisimo.data.database.TablesDatabase
+import com.example.interrapidisimo.data.database.daos.SchemaDao
 import com.example.interrapidisimo.data.database.daos.UserDao
 import com.example.interrapidisimo.data.network.ApiClient
 import dagger.Module
@@ -44,13 +45,21 @@ object NetworkModule {
             context,
             TablesDatabase::class.java,
             DATABASE_NAME
-        ).build()
+        ).allowMainThreadQueries()
+            .addMigrations(TablesDatabase.MIGRATION_1_2)
+            .build()
     }
 
     @Singleton
     @Provides
     fun provideUserDao(db: TablesDatabase): UserDao {
         return db.getUserDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSchemaDao(db: TablesDatabase): SchemaDao {
+        return db.getSchemaDao()
     }
 
 }

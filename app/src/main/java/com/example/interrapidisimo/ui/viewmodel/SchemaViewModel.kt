@@ -1,5 +1,6 @@
 package com.example.interrapidisimo.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.interrapidisimo.data.model.ApiError
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataSchemeDTO
 import com.example.interrapidisimo.domain.GetSchemaUseCase
+import com.example.interrapidisimo.domain.SaveSchemaUseCase
 import com.example.interrapidisimo.domain.ServiceUseCaseResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SchemaViewModel @Inject constructor(
-    private val schemaUseCase: GetSchemaUseCase
+    private val schemaUseCase: GetSchemaUseCase,
+    private val saveSchemaUseCase: SaveSchemaUseCase,
 ) : ViewModel() {
 
     private val _showOrHideLoader = MutableLiveData<Boolean>()
@@ -41,8 +44,10 @@ class SchemaViewModel @Inject constructor(
 
                             try {
                                 if (result.isSuccessful) {
-                                    val user = result.body()
-
+                                    val tables = result.body()
+                                    if (tables != null) {
+                                        saveSchema(tables)
+                                    }
                                     _successMessage.postValue(result)
                                 } else {
                                     _errorMessage.postValue("Error: ${result.message()}")
@@ -62,6 +67,15 @@ class SchemaViewModel @Inject constructor(
                         }
                     }
                 )
+            }
+        }
+    }
+
+    fun saveSchema(tables: List<ResponseDataSchemeDTO>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            withContext(viewModelScope.coroutineContext) {
+                Log.d("http ${this::class.java.simpleName}", "VM saveSchema tables: $tables")
+                saveSchemaUseCase.insert(tables)
             }
         }
     }

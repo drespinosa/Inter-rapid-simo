@@ -12,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.example.interrapidisimo.R
 import com.example.interrapidisimo.data.model.BuildConfig
+import com.example.interrapidisimo.data.utils.Constants.FAIL_RESPONSE_VERSION
 import com.example.interrapidisimo.data.utils.Constants.VERSION_EQUAL
 import com.example.interrapidisimo.data.utils.Constants.VERSION_LOCAL_LARGER
 import com.example.interrapidisimo.data.utils.Constants.VERSION_REMOTE_LARGER
@@ -176,19 +177,38 @@ class LoginActivity : ComponentActivity() {
     }
 
     private fun showMessageVersionDialog(message: String) {
-        val newMessage = getString(
-            R.string.message_version,
-            message,
-            "\n \n- Versión Local: $versionLocal  \n- Versión Remota: $versionRemote"
-        )
-        val binding = DialogVersionBinding.inflate(LayoutInflater.from(this))
-        binding.textDialogTextview.text = newMessage
-        setVersionImage(binding.imageVersionDialogImageview, message)
-        val dialog = AlertDialog.Builder(this).setView(binding.root)
+        val newMessage = buildVersionMessage(message, versionLocal, versionRemote)
+        val bindingDialog = DialogVersionBinding.inflate(LayoutInflater.from(this))
+        bindingDialog.textDialogTextview.text = newMessage
+        setVersionImage(bindingDialog.imageVersionDialogImageview, message)
+        setVersionImage(binding.warningVersionImageview, message)
+
+        val dialog = AlertDialog.Builder(this).setView(bindingDialog.root)
             .create()
 
         dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_background)
         dialog.show()
+    }
+
+    /**
+     * Construye el mensaje de versión basado en el estado de la respuesta.
+     *
+     * @param message El mensaje de estado de la versión.
+     * @param versionLocal La versión local de la aplicación.
+     * @param versionRemote La versión remota de la aplicación.
+     * @return El mensaje formateado.
+     */
+    private fun buildVersionMessage(message: String, versionLocal: Int, versionRemote: Int?): String {
+        val remoteVersionText = when (message) {
+            FAIL_RESPONSE_VERSION -> "No disponible"
+            else -> versionRemote.toString()
+        }
+
+        return getString(
+            R.string.message_version,
+            message,
+            "\n \n- Versión Local: $versionLocal  \n- Versión Remota: $remoteVersionText"
+        )
     }
 
     /**
@@ -202,7 +222,7 @@ class LoginActivity : ComponentActivity() {
             VERSION_REMOTE_LARGER -> R.drawable.ic_error
             VERSION_LOCAL_LARGER -> R.drawable.ic_change
             VERSION_EQUAL -> R.drawable.ic_check
-            else -> R.drawable.ic_check
+            else -> R.drawable.ic_error_wifi
         }
     }
 

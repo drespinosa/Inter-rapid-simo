@@ -113,8 +113,8 @@
 
         <ImageView
             android:id="@+id/warning_version_imageview"
-            android:layout_width="@dimen/dimen_30"
-            android:layout_height="@dimen/dimen_30"
+            android:layout_width="@dimen/dimen_23"
+            android:layout_height="@dimen/dimen_23"
             app:layout_constraintEnd_toStartOf="@+id/logo_version_imageview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

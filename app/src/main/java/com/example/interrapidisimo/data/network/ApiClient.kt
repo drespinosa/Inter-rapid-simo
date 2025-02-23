@@ -31,6 +31,6 @@ interface ApiClient {
     @GET("/schema")
     suspend fun getSchema(): Response<List<ResponseDataSchemeDTO>>
 
-    @GET("/localities")
+    @GET("api/localities")
     suspend fun getLocalities(): Response<List<ResponseDataLocalityDTO>>
 }

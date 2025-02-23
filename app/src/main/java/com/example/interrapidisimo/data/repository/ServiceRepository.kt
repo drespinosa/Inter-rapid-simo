@@ -59,18 +59,7 @@ class ServiceRepository @Inject constructor(
 
     suspend fun getLocalities(): Response<List<ResponseDataLocalityDTO>> {
         return withContext(Dispatchers.IO) {
-           // api.getLocalities()
-            val simulatedData = listOf(
-                ResponseDataLocalityDTO(
-                    abbreviation = "BOG",
-                    city = "Bogota"
-                ),
-                ResponseDataLocalityDTO(
-                    abbreviation = "ANT",
-                    city = "Antioquia"
-                )
-            )
-            Response.success(simulatedData)
+           api.getLocalities()
         }
     }
 }

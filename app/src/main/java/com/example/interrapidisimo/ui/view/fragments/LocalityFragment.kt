@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.interrapidisimo.R
@@ -42,11 +43,30 @@ class LocalityFragment : Fragment() {
     private fun observers() {
         localityViewModel.successMessage.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
+                binding.localityRecyclerView.isVisible = true
+                binding.imageError.isVisible = false
                 binding.localityRecyclerView.adapter = LocalityAdapter(it.body() ?: listOf())
             }
         }
         localityViewModel.showOrHideLoader.observe(viewLifecycleOwner){ show ->
             showLoading(show)
+        }
+        localityViewModel.errorMessage.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.localityRecyclerView.isVisible = false
+                binding.imageError.isVisible = true
+                val dialog = AlertDialog.Builder(requireContext())
+                    .setTitle((R.string.error))
+                    .setMessage(it)
+                    .setPositiveButton((R.string.retry)) { dialog, _ ->
+                        dialog.dismiss()
+                        localityViewModel.getLocalities()
+                    }
+                    .create()
+
+                dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_background)
+                dialog.show()
+            }
         }
     }
 

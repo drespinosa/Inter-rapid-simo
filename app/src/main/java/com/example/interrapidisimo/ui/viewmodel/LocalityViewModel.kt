@@ -42,8 +42,6 @@ class LocalityViewModel @Inject constructor(
 
                             try {
                                 if (result.isSuccessful) {
-                                    val localities = result.body()
-
                                     _successMessage.postValue(result)
                                 } else {
                                     _errorMessage.postValue("Error al procesar la solicitud: ${result.message()}")
@@ -58,8 +56,9 @@ class LocalityViewModel @Inject constructor(
 
                         override fun onError(apiError: ApiError?) {
                             _showOrHideLoader.postValue(false)
-
-                            _errorMessage.postValue("Error: $apiError")
+                            if (apiError != null) {
+                                _errorMessage.postValue("Error: ${apiError.getErrorMessage()}")
+                            }
                         }
                     }
                 )

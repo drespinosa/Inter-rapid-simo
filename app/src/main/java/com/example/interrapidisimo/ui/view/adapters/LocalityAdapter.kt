@@ -28,9 +28,11 @@ class LocalityAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: ResponseDataLocalityDTO) {
-            binding.tittleTableTextview.text = data.abbreviation
+            binding.tittleTableTextview.text = data.name
             binding.dataOneTextview.text = data.abbreviation
-            binding.dataTwoTextview.text = data.city
+            binding.dataTwoTextview.text = data.fullName
+            binding.dataThreeTextview.text = data.postal
+            binding.dataFourTextview.text = if (data.amount == null) "0.0" else data.amount.toString()
         }
 
     }

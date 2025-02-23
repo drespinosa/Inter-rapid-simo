@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.interrapidisimo.R
 import com.example.interrapidisimo.data.model.vo.UserVO
 import com.example.interrapidisimo.databinding.ActivityMainBinding
 import com.example.interrapidisimo.ui.view.FragmentEventListener
-import com.example.interrapidisimo.ui.view.fragments.HomeFragment
 import com.example.interrapidisimo.ui.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,16 +20,18 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
     private lateinit var binding: ActivityMainBinding
     private val loginViewModel: LoginViewModel by viewModels()
     private var dataUser: UserVO? = null
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        navController = navHostFragment.navController
+
         setupHeaderButtons()
-        if (savedInstanceState == null) {
-            loadFragment(HomeFragment())
-        }
+        loadFragment()
 
         loginViewModel.getUser()
         addObservers()
@@ -47,10 +49,7 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
     }
 
     private fun goToHome() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, HomeFragment())
-            .addToBackStack(null)
-            .commit()
+        navController.navigate(R.id.navigation_fragment_home)
     }
 
     /**
@@ -75,11 +74,8 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
      *
      * @param fragment El fragmento que se va a cargar.
      */
-    private fun loadFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
-            .commit()
+    private fun loadFragment() {
+        navController.navigate(R.id.navigation_fragment_home)
     }
 
     /**

@@ -20,14 +20,17 @@
 
     </LinearLayout>
 
-    <FrameLayout
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
         android:layout_width="@dimen/dimen_0"
         android:layout_height="@dimen/dimen_0"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/mobile_navigation" />
 
     <ImageButton
         android:id="@+id/button_back"

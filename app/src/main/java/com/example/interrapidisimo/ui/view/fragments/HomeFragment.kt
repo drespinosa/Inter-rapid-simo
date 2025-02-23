@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.example.interrapidisimo.R
 import com.example.interrapidisimo.data.model.vo.UserVO
 import com.example.interrapidisimo.databinding.FragmentHomeBinding
@@ -22,10 +25,13 @@ class HomeFragment : Fragment() {
     private var listener: FragmentEventListener? = null
     private val loginViewModel: LoginViewModel by activityViewModels()
     private var dataUser: UserVO? = null
+    private lateinit var navController: NavController
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        navController = findNavController()
+        requireActivity().onBackPressedDispatcher.addCallback { }
         return root
     }
 
@@ -39,17 +45,11 @@ class HomeFragment : Fragment() {
 
     private fun addButtonsListeners() {
         binding.localityButton.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, LocalityFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_locality)
         }
 
         binding.schemaButton.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SchemaFragment())
-                .addToBackStack(null)
-                .commit()
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_schema)
         }
     }
 

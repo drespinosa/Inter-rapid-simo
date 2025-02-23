@@ -16,8 +16,8 @@ activityCompose = "1.10.0"
 composeBom = "2025.01.00"
 constraintlayout = "2.2.0"
 retrofit = "2.9.0"
-navigationFragmentKtx = "2.8.5"
-navigationUiKtx = "2.8.5"
+navigationFragmentKtx = "2.8.7"
+navigationUiKtx = "2.8.7"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }

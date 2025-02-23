@@ -62,6 +62,10 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /**
+     * Muestra los datos del usuario en la UI.
+     * Este método actualiza los TextView con la información del usuario.
+     */
     private fun printUserData() {
         binding.userId.text = getString(R.string.identification_display, getString(R.string.identification), dataUser?.identification)
         binding.userName.text = getString(R.string.identification_display, getString(R.string.name), dataUser?.name)

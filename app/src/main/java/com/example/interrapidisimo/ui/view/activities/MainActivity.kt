@@ -53,6 +53,10 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
             .commit()
     }
 
+    /**
+     * Cierra la sesión del usuario y redirige a la actividad de login.
+     * Este método inicia la actividad de login y finaliza la actividad actual.
+     */
     private fun logout() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
@@ -65,6 +69,12 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
         }
     }
 
+    /**
+     * Carga un fragmento en el contenedor de fragmentos.
+     * Este método reemplaza el fragmento actual en el contenedor de fragmentos.
+     *
+     * @param fragment El fragmento que se va a cargar.
+     */
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
@@ -72,6 +82,12 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
             .commit()
     }
 
+    /**
+     * Implementación de la interfaz [FragmentEventListener].
+     * Este método habilita o deshabilita el botón de retroceso según el estado del fragmento.
+     *
+     * @param shouldDisable Indica si el botón de retroceso debe deshabilitarse (true) o habilitarse (false).
+     */
     override fun onDisableButton(shouldDisable: Boolean) {
         if (shouldDisable) {
             binding.buttonBack.visibility = View.GONE
@@ -79,5 +95,4 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
             binding.buttonBack.visibility = View.VISIBLE
         }
     }
-
 }

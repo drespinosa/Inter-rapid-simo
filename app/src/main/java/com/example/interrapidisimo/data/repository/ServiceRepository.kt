@@ -16,6 +16,12 @@ class ServiceRepository @Inject constructor(
     private val api: ApiClient
 ) {
 
+    /**
+     * Obtiene la versión de control desde el servidor.
+     *
+     * @return Un objeto [Response] que contiene un [ResponseDataControlVDTO] con el número de versión
+     * si la solicitud es exitosa, o un error en caso contrario.
+     */
     suspend fun getControlVersion(): Response<ResponseDataControlVDTO> {
         return withContext(Dispatchers.IO) {
             val response = api.getControlVersion()
@@ -28,6 +34,13 @@ class ServiceRepository @Inject constructor(
         }
     }
 
+    /**
+     * Realiza una solicitud de inicio de sesión (LogIn) al servidor.
+     *
+     * @param request Objeto [RequestUserDTO] que contiene los datos de la solicitud de inicio de sesión.
+     * @return Un objeto [Response] que contiene un [ResponseDataUserDTO] si la solicitud es exitosa,
+     * o un error en caso contrario.
+     */
     suspend fun postLogIn(request: RequestUserDTO): Response<ResponseDataUserDTO> {
         return withContext(Dispatchers.IO) {
             api.postLogIn(
@@ -45,6 +58,11 @@ class ServiceRepository @Inject constructor(
 
     }
 
+    /**
+     * Obtiene un esquema de datos simulado.
+     *
+     * @return Un objeto [Response] que contiene una lista de [ResponseDataSchemeDTO] con datos simulados.
+     */
     suspend fun getSchema(): Response<List<ResponseDataSchemeDTO>> {
         return withContext(Dispatchers.IO) {
             //api.getSchema()
@@ -57,6 +75,12 @@ class ServiceRepository @Inject constructor(
         }
     }
 
+    /**
+     * Obtiene una lista de localidades desde el servidor.
+     *
+     * @return Un objeto [Response] que contiene una lista de [ResponseDataLocalityDTO] si la solicitud es exitosa,
+     * o un error en caso contrario.
+     */
     suspend fun getLocalities(): Response<List<ResponseDataLocalityDTO>> {
         return withContext(Dispatchers.IO) {
            api.getLocalities()

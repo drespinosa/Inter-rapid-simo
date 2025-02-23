@@ -37,9 +37,12 @@ class LocalityFragment : Fragment() {
 
         localityViewModel.getLocalities()
         observers()
-
     }
 
+    /**
+     * Configura los observadores del ViewModel.
+     * Este método observa los cambios en los LiveData del ViewModel y actualiza la UI en consecuencia.
+     */
     private fun observers() {
         localityViewModel.successMessage.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {

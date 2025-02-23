@@ -47,6 +47,10 @@ class LoginActivity : ComponentActivity() {
         addButtonsListeners()
     }
 
+    /**
+     * Verifica la versión de la aplicación comparando la versión local con la remota.
+     * Este método obtiene la versión local y solicita la versión remota al ViewModel.
+     */
     private fun checkVersion() {
         versionLocal = BuildConfig.VERSION_NAME.toDouble().toInt()
 
@@ -187,6 +191,12 @@ class LoginActivity : ComponentActivity() {
         dialog.show()
     }
 
+    /**
+     * Obtiene el recurso de imagen correspondiente al estado de la versión.
+     *
+     * @param state El estado de la versión.
+     * @return El recurso de imagen correspondiente al estado.
+     */
     private fun getVersionDrawable(state: String): Int {
         return when (state) {
             VERSION_REMOTE_LARGER -> R.drawable.ic_error
@@ -196,10 +206,14 @@ class LoginActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * Establece la imagen correspondiente al estado de la versión en un ImageView.
+     *
+     * @param imageView El ImageView donde se establecerá la imagen.
+     * @param state El estado de la versión.
+     */
     private fun setVersionImage(imageView: ImageView, state: String) {
         imageView.setImageDrawable(ContextCompat.getDrawable(this, getVersionDrawable(state)))
         binding.versionNumberTextview.text = versionLocal.toString()
     }
-
-
 }

@@ -13,10 +13,10 @@ import retrofit2.http.POST
 
 interface ApiClient {
 
-    @GET("/apicontrollerpruebas/api/ParametrosFramework/ConsultarParametrosFramework/VPStoreAppControl")
-    suspend fun getControlVersion(): Response<ResponseDataControlVDTO>
+    @GET("api/version")
+    suspend fun getControlVersion(): Response<Int>
 
-    @POST("/FtEntregaElectronica/MultiCanales/ApiSeguridadPruebas/api/Seguridad/AuthenticaUsuarioApp")
+    @POST("/auth")
     suspend fun postLogIn(
         @Header("Usuario") usuario: String,
         @Header("Identificacion") identificacion: String,
@@ -28,9 +28,9 @@ interface ApiClient {
         @Body userDTO: RequestUserDTO
     ): Response<ResponseDataUserDTO>
 
-    @GET("/apicontrollerpruebas/api/SincronizadorDatos/ObtenerEsquema/true")
+    @GET("/schema")
     suspend fun getSchema(): Response<List<ResponseDataSchemeDTO>>
 
-    @GET("/apicontrollerpruebas/api/ParametrosFramework/ObtenerLocalidadesRecogidas")
+    @GET("/localities")
     suspend fun getLocalities(): Response<List<ResponseDataLocalityDTO>>
 }

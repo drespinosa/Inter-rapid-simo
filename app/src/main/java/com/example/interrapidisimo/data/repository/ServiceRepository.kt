@@ -8,6 +8,7 @@ import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataUser
 import com.example.interrapidisimo.data.network.ApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -17,11 +18,13 @@ class ServiceRepository @Inject constructor(
 
     suspend fun getControlVersion(): Response<ResponseDataControlVDTO> {
         return withContext(Dispatchers.IO) {
-           // api.getControlVersion()
-            val simulatedData = ResponseDataControlVDTO(
-                version = "10.1.0"
-            )
-            Response.success(simulatedData)
+            val response = api.getControlVersion()
+            if (response.isSuccessful) {
+                val versionNumber = response.body() ?: 0
+                Response.success(ResponseDataControlVDTO(versionNumber))
+            } else {
+                Response.error(response.code(), ResponseBody.create(null, ""))
+            }
         }
     }
 
@@ -32,7 +35,7 @@ class ServiceRepository @Inject constructor(
                 identificacion = "987204545",
                 idUsuario = "pam.meredy21",
                 idCentroServicio = "1295",
-                nombreCentroServicio = "PTO/BOGOTA/CUND/COL/OF PRINCIPAL - CRA 30 # 7-45",
+                nombreCentroServicio = "PTO/BOGOTA/CUND/COL/OF PRINCIPAL - CRA30#7-45",
                 idAplicativoOrigen = "9",
                 contentType = "application/json",
                 request

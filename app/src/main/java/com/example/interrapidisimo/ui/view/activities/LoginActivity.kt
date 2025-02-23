@@ -22,8 +22,8 @@ class LoginActivity : ComponentActivity() {
     private val loginViewModel: LoginViewModel by viewModels()
     private val checkAppVersion: ControlVersionViewModel by viewModels()
     private var loadingDialog: AlertDialog? = null
-    private var versionRemote: String? = null
-    private var versionLocal: String? = null
+    private var versionRemote: Int? = null
+    private var versionLocal: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -35,16 +35,15 @@ class LoginActivity : ComponentActivity() {
         binding.userEditText.setText("cGFtLm1lcmVkeTIx\n")
         binding.passwordEditText.setText("SW50ZXIyMDIx\n")
 
-        checkVersion()
         addObservers()
         addButtonsListeners()
     }
 
     private fun checkVersion() {
-        val localVersion = BuildConfig.VERSION_NAME
+        versionLocal = BuildConfig.VERSION_NAME.toDouble().toInt()
 
         checkAppVersion.postControlVersion(
-            localVersion = localVersion
+            localVersion = versionLocal
         )
     }
 
@@ -96,9 +95,6 @@ class LoginActivity : ComponentActivity() {
         }
         checkAppVersion.versionRemote.observe(this) { version ->
             versionRemote = version
-        }
-        checkAppVersion.versionLocal.observe(this) { version ->
-            versionLocal = version
         }
 
         loginViewModel.showOrHideLoader.observe(this) { show ->

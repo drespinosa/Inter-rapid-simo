@@ -1,6 +1,5 @@
 package com.example.interrapidisimo.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -62,8 +61,9 @@ class SchemaViewModel @Inject constructor(
 
                         override fun onError(apiError: ApiError?) {
                             _showOrHideLoader.postValue(false)
-
-                            _errorMessage.postValue("Error: $apiError")
+                            if (apiError != null) {
+                                _errorMessage.postValue("Error: ${apiError.getErrorMessage()}")
+                            }
                         }
                     }
                 )

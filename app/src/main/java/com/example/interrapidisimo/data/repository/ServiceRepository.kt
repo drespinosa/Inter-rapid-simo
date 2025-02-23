@@ -65,13 +65,15 @@ class ServiceRepository @Inject constructor(
      */
     suspend fun getSchema(): Response<List<ResponseDataSchemeDTO>> {
         return withContext(Dispatchers.IO) {
-            //api.getSchema()
-            val simulatedData = listOf(
+            api.getSchema()
+            /*val simulatedData = listOf(
                 ResponseDataSchemeDTO(name = "TablaUsuarios", content = "Usuario 1"),
                 ResponseDataSchemeDTO(name = "TablaProductos", content = "Producto 1"),
                 ResponseDataSchemeDTO(name = "TablaPedidos", content = "Pedido 1")
             )
-            Response.success(simulatedData)
+
+             */
+            //Response.success(simulatedData)
         }
     }
 

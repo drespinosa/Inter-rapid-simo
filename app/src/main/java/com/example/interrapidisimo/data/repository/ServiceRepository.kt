@@ -30,9 +30,10 @@ class ServiceRepository @Inject constructor(
 
     suspend fun postLogIn(request: RequestUserDTO): Response<ResponseDataUserDTO> {
         return withContext(Dispatchers.IO) {
-            /*api.postLogIn(
+            api.postLogIn(
                 usuario = "pam.meredy21",
                 identificacion = "987204545",
+                accept = "text/json",
                 idUsuario = "pam.meredy21",
                 idCentroServicio = "1295",
                 nombreCentroServicio = "PTO/BOGOTA/CUND/COL/OF PRINCIPAL - CRA30#7-45",
@@ -40,14 +41,6 @@ class ServiceRepository @Inject constructor(
                 contentType = "application/json",
                 request
             )
-
-             */
-            val simulatedData = ResponseDataUserDTO(
-                user = "pam.meredy21",
-                identification = "987204545",
-                name = "pam"
-            )
-            Response.success(simulatedData)
         }
 
     }

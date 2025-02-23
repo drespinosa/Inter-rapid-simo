@@ -1,7 +1,6 @@
 package com.example.interrapidisimo.data.network
 
 import com.example.interrapidisimo.data.model.dto.request.RequestUserDTO
-import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataControlVDTO
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataLocalityDTO
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataSchemeDTO
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataUserDTO
@@ -20,6 +19,7 @@ interface ApiClient {
     suspend fun postLogIn(
         @Header("Usuario") usuario: String,
         @Header("Identificacion") identificacion: String,
+        @Header("Accept") accept: String,
         @Header("IdUsuario") idUsuario: String,
         @Header("IdCentroServicio") idCentroServicio: String,
         @Header("NombreCentroServicio") nombreCentroServicio: String,

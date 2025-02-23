@@ -198,6 +198,7 @@ class LoginActivity : ComponentActivity() {
 
     private fun setVersionImage(imageView: ImageView, state: String) {
         imageView.setImageDrawable(ContextCompat.getDrawable(this, getVersionDrawable(state)))
+        binding.versionNumberTextview.text = versionLocal.toString()
     }
 
 

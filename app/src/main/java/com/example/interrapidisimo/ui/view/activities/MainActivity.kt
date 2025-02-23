@@ -56,12 +56,12 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
         val dialog = AlertDialog.Builder(this)
             .setTitle(R.string.logout)
             .setMessage(R.string.confirm_logout)
-            .setPositiveButton(R.string.yes) { dialog, _ ->
+            .setPositiveButton(R.string.confirm) { dialog, _ ->
                 loginViewModel.deleteUser()
                 logout()
                 dialog.dismiss()
             }
-            .setNegativeButton(R.string.no) { dialog, _ ->
+            .setNegativeButton(R.string.canel) { dialog, _ ->
                 dialog.dismiss()
             }
             .create()

@@ -28,7 +28,7 @@ interface ApiClient {
         @Body userDTO: RequestUserDTO
     ): Response<ResponseDataUserDTO>
 
-    @GET("/schema")
+    @GET("api/schema")
     suspend fun getSchema(): Response<List<ResponseDataSchemeDTO>>
 
     @GET("api/localities")

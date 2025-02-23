@@ -17,19 +17,21 @@
 
 > Listas: RecyclerView
 
+> Navegación: Navigation
+
 ## EndPoint
 
 Versión de aplicación con respecto al servidor
-> api/ParametrosFramework/ConsultarParametrosFramework/VPStoreAppControl
+> api/version
 
 Autenticación de usuario
-> FtEntregaElectronica/MultiCanales/ApiSeguridadPruebas/api/Seguridad/AuthenticaUsuarioApp
+> /auth
 
 Obtención de tablas
-> apicontrollerpruebas/api/SincronizadorDatos/ObtenerEsquema/true
+> api/schema
 
 Lista de localidades
-> ParametrosFramework/ObtenerLocalidadesRecogidas
+> api/localities
 
 ## Patrones de Diseño
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.interrapidisimo.data.model.ApiError
 import com.example.interrapidisimo.data.model.dto.response.data.ResponseDataLocalityDTO
 import com.example.interrapidisimo.domain.GetLocalitiesUseCase
+import com.example.interrapidisimo.domain.SaveLocalityUseCase
 import com.example.interrapidisimo.domain.ServiceUseCaseResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LocalityViewModel @Inject constructor(
-    private val localitiesUseCase: GetLocalitiesUseCase
+    private val localitiesUseCase: GetLocalitiesUseCase,
+    private val saveLocalityUseCase: SaveLocalityUseCase,
 ) : ViewModel() {
 
     private val _showOrHideLoader = MutableLiveData<Boolean>()
@@ -42,6 +44,10 @@ class LocalityViewModel @Inject constructor(
 
                             try {
                                 if (result.isSuccessful) {
+                                    val tables = result.body()
+                                    if (tables != null) {
+                                        saveLocality(tables)
+                                    }
                                     _successMessage.postValue(result)
                                 } else {
                                     _errorMessage.postValue("Error al procesar la solicitud: ${result.message()}")
@@ -62,6 +68,14 @@ class LocalityViewModel @Inject constructor(
                         }
                     }
                 )
+            }
+        }
+    }
+
+    fun saveLocality(tables: List<ResponseDataLocalityDTO>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            withContext(viewModelScope.coroutineContext) {
+                saveLocalityUseCase.insert(tables)
             }
         }
     }

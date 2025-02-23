@@ -3,6 +3,7 @@ package com.example.interrapidisimo.di
 import android.content.Context
 import androidx.room.Room
 import com.example.interrapidisimo.data.database.TablesDatabase
+import com.example.interrapidisimo.data.database.daos.LocalityDao
 import com.example.interrapidisimo.data.database.daos.SchemaDao
 import com.example.interrapidisimo.data.database.daos.UserDao
 import com.example.interrapidisimo.data.network.ApiClient
@@ -47,6 +48,7 @@ object NetworkModule {
             DATABASE_NAME
         ).allowMainThreadQueries()
             .addMigrations(TablesDatabase.MIGRATION_1_2)
+            .addMigrations(TablesDatabase.MIGRATION_2_3)
             .build()
     }
 
@@ -60,6 +62,12 @@ object NetworkModule {
     @Provides
     fun provideSchemaDao(db: TablesDatabase): SchemaDao {
         return db.getSchemaDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideLocalityDao(db: TablesDatabase): LocalityDao {
+        return db.getLocalityDao()
     }
 
 }

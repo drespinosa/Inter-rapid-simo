@@ -1,7 +1,9 @@
 package com.example.interrapidisimo.data.repository
 
+import com.example.interrapidisimo.data.database.daos.LocalityDao
 import com.example.interrapidisimo.data.database.daos.SchemaDao
 import com.example.interrapidisimo.data.database.daos.UserDao
+import com.example.interrapidisimo.data.database.entities.LocalityEntity
 import com.example.interrapidisimo.data.database.entities.SchemaEntity
 import com.example.interrapidisimo.data.database.entities.UserEntity
 import com.example.interrapidisimo.data.mapper.UserMapper
@@ -13,6 +15,7 @@ import javax.inject.Inject
 class RoomRepository @Inject constructor(
     private val userDao: UserDao,
     private val schemaDao: SchemaDao,
+    private val localityDao: LocalityDao
 ) {
 
     suspend fun saveUser(userEntity: UserEntity) {
@@ -37,6 +40,12 @@ class RoomRepository @Inject constructor(
     suspend fun saveSchema(tables: List<SchemaEntity>) {
         return withContext(Dispatchers.IO) {
             schemaDao.replaceTables(tables)
+        }
+    }
+
+    suspend fun saveLocality(tables: List<LocalityEntity>) {
+        return withContext(Dispatchers.IO) {
+            localityDao.replaceTables(tables)
         }
     }
 }

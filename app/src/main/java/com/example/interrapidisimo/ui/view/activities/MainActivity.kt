@@ -1,9 +1,7 @@
 package com.example.interrapidisimo.ui.view.activities
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +19,6 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
 
     private lateinit var binding: ActivityMainBinding
     private val loginViewModel: LoginViewModel by viewModels()
-    private var loadingDialog: AlertDialog? = null
     private var dataUser: UserVO? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,22 +62,6 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
     private fun addObservers() {
         loginViewModel.dataUser.observe(this) { data ->
             dataUser = data
-            Log.d("http ${this::class.java.simpleName}", "MA dataUser: $dataUser")
-        }
-    }
-
-    private fun showOrHideLoader(isLoading: Boolean) {
-        if (isLoading) {
-            if (loadingDialog == null) {
-                val builder = AlertDialog.Builder(this)
-                builder.setView(layoutInflater.inflate(R.layout.dialog_loading, null))
-                builder.setCancelable(false)
-                loadingDialog = builder.create()
-            }
-            loadingDialog?.show()
-        } else {
-            loadingDialog?.dismiss()
-            loadingDialog = null
         }
     }
 

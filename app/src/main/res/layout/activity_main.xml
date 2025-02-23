@@ -32,6 +32,7 @@
     <ImageButton
         android:id="@+id/button_back"
         style="@style/style_buttons_activities"
+        android:backgroundTint="@color/blue"
         android:layout_margin="15dp"
         android:drawablePadding="60dp"
         android:padding="@dimen/dimen_15"

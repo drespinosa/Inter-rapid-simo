@@ -74,7 +74,6 @@ class SchemaViewModel @Inject constructor(
     fun saveSchema(tables: List<ResponseDataSchemeDTO>) {
         viewModelScope.launch(Dispatchers.IO) {
             withContext(viewModelScope.coroutineContext) {
-                Log.d("http ${this::class.java.simpleName}", "VM saveSchema tables: $tables")
                 saveSchemaUseCase.insert(tables)
             }
         }

@@ -5,11 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.widget.ImageView
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.example.interrapidisimo.R
 import com.example.interrapidisimo.data.model.BuildConfig
+import com.example.interrapidisimo.data.utils.Constants.VERSION_EQUAL
+import com.example.interrapidisimo.data.utils.Constants.VERSION_LOCAL_LARGER
+import com.example.interrapidisimo.data.utils.Constants.VERSION_REMOTE_LARGER
+import com.example.interrapidisimo.databinding.DialogVersionBinding
 import com.example.interrapidisimo.databinding.LoginActivityBinding
 import com.example.interrapidisimo.ui.viewmodel.ControlVersionViewModel
 import com.example.interrapidisimo.ui.viewmodel.LoginViewModel
@@ -24,6 +30,7 @@ class LoginActivity : ComponentActivity() {
     private var loadingDialog: AlertDialog? = null
     private var versionRemote: Int? = null
     private var versionLocal: Int = 0
+    private var isInitProcess: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -35,6 +42,7 @@ class LoginActivity : ComponentActivity() {
         binding.userEditText.setText("cGFtLm1lcmVkeTIx\n")
         binding.passwordEditText.setText("SW50ZXIyMDIx\n")
 
+        checkVersion()
         addObservers()
         addButtonsListeners()
     }
@@ -55,6 +63,7 @@ class LoginActivity : ComponentActivity() {
         }
 
         binding.versionLayout.setOnClickListener {
+            isInitProcess = false
             checkVersion()
         }
 
@@ -88,7 +97,11 @@ class LoginActivity : ComponentActivity() {
     private fun addObservers() {
 
         checkAppVersion.versionMessage.observe(this) { message ->
-            showMessageVersionDialog(message)
+            if (isInitProcess) {
+                setVersionImage(binding.warningVersionImageview, message)
+            } else {
+                showMessageVersionDialog(message)
+            }
         }
         checkAppVersion.showOrHideLoader.observe(this) { isLoading ->
             showLoading(isLoading)
@@ -159,15 +172,32 @@ class LoginActivity : ComponentActivity() {
     }
 
     private fun showMessageVersionDialog(message: String) {
-        val newMessage = getString(R.string.message_version, message, "\n \n- Versión Local: $versionLocal  \n- Versión Remota: $versionRemote")
-        val dialog = AlertDialog.Builder(this)
-            .setTitle(getString(R.string.version_info))
-            .setMessage(newMessage)
-            .setPositiveButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
+        val newMessage = getString(
+            R.string.message_version,
+            message,
+            "\n \n- Versión Local: $versionLocal  \n- Versión Remota: $versionRemote"
+        )
+        val binding = DialogVersionBinding.inflate(LayoutInflater.from(this))
+        binding.textDialogTextview.text = newMessage
+        setVersionImage(binding.imageVersionDialogImageview, message)
+        val dialog = AlertDialog.Builder(this).setView(binding.root)
             .create()
 
         dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_background)
         dialog.show()
+    }
+
+    private fun getVersionDrawable(state: String): Int {
+        return when (state) {
+            VERSION_REMOTE_LARGER -> R.drawable.ic_error
+            VERSION_LOCAL_LARGER -> R.drawable.ic_change
+            VERSION_EQUAL -> R.drawable.ic_check
+            else -> R.drawable.ic_check
+        }
+    }
+
+    private fun setVersionImage(imageView: ImageView, state: String) {
+        imageView.setImageDrawable(ContextCompat.getDrawable(this, getVersionDrawable(state)))
     }
 
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -43,9 +44,30 @@ class MainActivity : AppCompatActivity(), FragmentEventListener {
         }
 
         binding.buttonLogout.setOnClickListener {
-            loginViewModel.deleteUser()
-            logout()
+            showLogoutConfirmationDialog()
         }
+    }
+
+    /**
+     * Muestra un diálogo de confirmación para cerrar sesión.
+     * Si el usuario confirma, se ejecuta la lógica de cierre de sesión.
+     */
+    private fun showLogoutConfirmationDialog() {
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(R.string.logout)
+            .setMessage(R.string.confirm_logout)
+            .setPositiveButton(R.string.yes) { dialog, _ ->
+                loginViewModel.deleteUser()
+                logout()
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.no) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_background)
+        dialog.show()
     }
 
     private fun goToHome() {

@@ -23,4 +23,7 @@
     <string name="password_empty">Por favor ingresa la contraseña</string>
     <string name="user_empty">Por favor ingresa el usuario</string>
     <string name="retry">Reintentar</string>
+    <string name="confirm_logout">¿Estás seguro de que deseas cerrar sesión?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
 </resources>

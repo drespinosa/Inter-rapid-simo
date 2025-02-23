@@ -8,13 +8,13 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="20dp"
-        app:cardCornerRadius="10dp"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_marginStart="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_200"
+        android:layout_marginEnd="@dimen/dimen_20"
+        app:cardCornerRadius="@dimen/dimen_10"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="20dp">
+        tools:layout_editor_absoluteX="@dimen/dimen_20">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,8 +24,8 @@
                 android:id="@+id/homeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="@dimen/dimen_40"
+                android:layout_marginEnd="@dimen/dimen_17"
                 android:text="@string/dates_user"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -34,12 +34,12 @@
 
             <LinearLayout
                 android:id="@+id/user_info_container"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:elevation="4dp"
+                android:layout_marginTop="@dimen/dimen_40"
+                android:elevation="@dimen/dimen_4"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:padding="@dimen/dimen_16"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/homeText">
@@ -48,14 +48,14 @@
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/dimen_8"
                     android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/user_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/dimen_8"
                     android:textSize="16sp" />
 
                 <TextView
@@ -70,43 +70,43 @@
     </androidx.cardview.widget.CardView>
 
     <RelativeLayout
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="150dp"
-        android:translationZ="10dp"
+        android:layout_width="@dimen/dimen_150"
+        android:layout_height="@dimen/dimen_150"
+        android:layout_marginStart="@dimen/dimen_15"
+        android:layout_marginTop="@dimen/dimen_150"
+        android:translationZ="@dimen/dimen_10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="@dimen/dimen_148"
+            android:layout_height="@dimen/dimen_148"
             android:src="@drawable/ic_user_" />
     </RelativeLayout>
 
     <ImageButton
         android:id="@+id/schema_button"
         style="@style/style_buttons_fragment"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
-        android:drawablePadding="60dp"
+        android:layout_marginEnd="@dimen/dimen_15"
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:drawablePadding="@dimen/dimen_60"
         android:padding="@dimen/dimen_15"
         android:src="@drawable/ic_table"
         android:textColor="@color/white"
-        android:translationZ="10dp"
+        android:translationZ="@dimen/dimen_10"
         app:layout_constraintBottom_toTopOf="@+id/locality_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
         android:id="@+id/locality_button"
         style="@style/style_buttons_fragment"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="90dp"
-        android:drawablePadding="60dp"
+        android:layout_marginEnd="@dimen/dimen_15"
+        android:layout_marginBottom="@dimen/dimen_90"
+        android:drawablePadding="@dimen/dimen_60"
         android:padding="@dimen/dimen_15"
         android:src="@drawable/ic_locality"
         android:textColor="@color/white"
-        android:translationZ="10dp"
+        android:translationZ="@dimen/dimen_10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

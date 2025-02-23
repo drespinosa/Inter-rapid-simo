@@ -8,11 +8,11 @@
 
     <LinearLayout
         android:id="@+id/header"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dimen_0"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="@dimen/dimen_16"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,8 @@
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/dimen_0"
+        android:layout_height="@dimen/dimen_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,8 +33,8 @@
         android:id="@+id/button_back"
         style="@style/style_buttons_activities"
         android:backgroundTint="@color/blue"
-        android:layout_margin="15dp"
-        android:drawablePadding="60dp"
+        android:layout_margin="@dimen/dimen_15"
+        android:drawablePadding="@dimen/dimen_60"
         android:padding="@dimen/dimen_15"
         android:src="@drawable/ic_home"
         android:textColor="@color/white"
@@ -44,7 +44,7 @@
     <ImageButton
         android:id="@+id/button_logout"
         style="@style/style_buttons_activities"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/dimen_15"
         android:src="@drawable/ic_logout"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_container"
         app:layout_constraintEnd_toEndOf="parent" />

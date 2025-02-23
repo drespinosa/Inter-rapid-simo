@@ -5,9 +5,9 @@
     android:id="@+id/request_cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:paddingBottom="5dp"
-    app:cardCornerRadius="10dp"
+    android:layout_margin="@dimen/dimen_15"
+    android:paddingBottom="@dimen/dimen_5"
+    app:cardCornerRadius="@dimen/dimen_10"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
@@ -24,7 +24,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header_constraintlayout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/dimen_40"
             android:background="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,11 +50,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content_constraintlayout"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:paddingStart="@dimen/dimen_15"
+            android:paddingEnd="@dimen/dimen_15"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header_constraintlayout">
@@ -76,11 +76,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content_two_constraintlayout"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:paddingStart="@dimen/dimen_15"
+            android:paddingEnd="@dimen/dimen_15"
             app:layout_constraintBottom_toTopOf="@+id/content_three_constraintlayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,11 +103,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content_three_constraintlayout"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:paddingStart="@dimen/dimen_15"
+            android:paddingEnd="@dimen/dimen_15"
             app:layout_constraintBottom_toTopOf="@+id/content_four_constraintlayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -130,12 +130,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content_four_constraintlayout"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginBottom="@dimen/dimen_15"
+            android:paddingStart="@dimen/dimen_15"
+            android:paddingEnd="@dimen/dimen_15"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

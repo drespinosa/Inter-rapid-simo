@@ -17,7 +17,7 @@ class LocalityAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], position == data.size - 1)
     }
 
     override fun getItemCount(): Int {
@@ -27,12 +27,16 @@ class LocalityAdapter(
     inner class ViewHolder(private val binding: LocalityItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: ResponseDataLocalityDTO) {
+        fun bind(data: ResponseDataLocalityDTO, isLast: Boolean) {
             binding.tittleTableTextview.text = data.name
             binding.dataOneTextview.text = data.abbreviation
             binding.dataTwoTextview.text = data.fullName
             binding.dataThreeTextview.text = data.postal
             binding.dataFourTextview.text = if (data.amount == null) "0.0" else data.amount.toString()
+
+            val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.bottomMargin = if (isLast) 50 else 0
+            binding.root.layoutParams = layoutParams
         }
 
     }

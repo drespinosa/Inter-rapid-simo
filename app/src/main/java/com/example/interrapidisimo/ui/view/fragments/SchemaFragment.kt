@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.interrapidisimo.R
@@ -36,12 +37,31 @@ class SchemaFragment : Fragment() {
 
     private fun observers(){
         schemaViewModel.successMessage.observe(viewLifecycleOwner){
-            if (it.isSuccessful){
+            if (it.isSuccessful) {
+                binding.tableRecyclerView.isVisible = true
+                binding.imageError.isVisible = false
                 binding.tableRecyclerView.adapter = SchemaAdapter(it.body() ?: listOf())
             }
         }
         schemaViewModel.showOrHideLoader.observe(viewLifecycleOwner){ show ->
             showLoading(show)
+        }
+        schemaViewModel.errorMessage.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.tableRecyclerView.isVisible = false
+                binding.imageError.isVisible = true
+                val dialog = AlertDialog.Builder(requireContext())
+                    .setTitle((R.string.error))
+                    .setMessage(it)
+                    .setPositiveButton((R.string.retry)) { dialog, _ ->
+                        dialog.dismiss()
+                        schemaViewModel.getSchemas()
+                    }
+                    .create()
+
+                dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_background)
+                dialog.show()
+            }
         }
     }
 

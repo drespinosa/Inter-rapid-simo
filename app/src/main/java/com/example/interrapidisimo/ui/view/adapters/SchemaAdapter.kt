@@ -29,6 +29,7 @@ class SchemaAdapter(
         fun bind(data: ResponseDataSchemeDTO) {
             binding.tittleTableTextview.text = data.name
             binding.dataOneTextview.text = data.content
+            binding.dataTwoTextview.text = data.content
         }
     }
 

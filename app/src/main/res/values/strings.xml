@@ -26,4 +26,5 @@
     <string name="confirm_logout">¿Estás seguro de que deseas cerrar sesión?</string>
     <string name="confirm">Confirmar</string>
     <string name="canel">Cancelar</string>
+    <string name="date">Fecha</string>
 </resources>
